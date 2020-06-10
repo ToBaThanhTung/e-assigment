@@ -51,6 +51,12 @@ const ROUTES = [
         exact: true,
         component: () => <h1>App Page</h1>,
       },
+      {
+        path: "/lecture/question/:id",
+        key: "QUESTION",
+        exact: true,
+        component: Lecture.Question,
+      },
     ],
   },
 ];

@@ -1,5 +1,7 @@
-import TestBank from './test-bank'
+import TestBank from "./test-bank";
+import Question from "./question";
 
 export default {
-  TestBank
+  TestBank,
+  Question
 };
