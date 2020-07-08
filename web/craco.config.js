@@ -8,7 +8,9 @@ module.exports = {
         lessLoaderOptions: {
           lessOptions: {
             javascriptEnabled: true,
-            modifyVars: { "@primary-color": volcano.primary },
+            modifyVars: { 
+              "@primary-color": volcano.primary,
+            },
           },
         },
       },

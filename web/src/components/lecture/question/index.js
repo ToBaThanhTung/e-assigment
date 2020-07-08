@@ -1,3 +1,3 @@
-import Question from "./ShortAnswer";
+import Question from "./CreateQuestion";
 
 export default Question;
