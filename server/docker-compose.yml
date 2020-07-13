@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  app:
+    image: registry.gitlab.com/codelynx-mini-projects/tesseract-server/server:master
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - REDIS_URL=${REDIS_URL}
+      - APP_PORT=${APP_PORT}
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+    restart: unless-stopped
+    depends_on:
+      - redis
+      - db
+    networks:
+      - db-network
+      - redis-network
+  db:
+    image: mongo
+    container_name: tesseract-mongo
+    volumes:
+      - mongodbdata:/data/db
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:27017:27017
+    networks:
+      - db-network
+
+  redis:
+    image: redis:6.0.5-alpine
+    container_name: tesseract-redis
+    volumes:
+      - redisdata:/data
+    restart: unless-stopped
+    ports:
+      - 0.0.0.0:6379:6379
+    networks:
+      - redis-network
+networks:
+  db-network:
+    driver: bridge
+  redis-network:
+    driver: bridge

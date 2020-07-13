@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - '${APP_PORT}:${APP_PORT}'
+  db:
+    volumes:
+      - .docker/data/db:/data/db
+  redis:
+    volumes:
+      - .docker/data/redis:/data
