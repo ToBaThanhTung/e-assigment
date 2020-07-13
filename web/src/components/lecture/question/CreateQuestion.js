@@ -4,6 +4,8 @@ import { Typography, Col, Row, Checkbox, Divider, Button } from "antd";
 
 import times from "lodash/times";
 import NumericInput from "../../shared/NumericInput";
+import QuestionType from "./QuestionType";
+import QuestionTag from "./QuestionTag";
 
 const { Title, Text } = Typography;
 
@@ -13,9 +15,7 @@ function CreateQuestion() {
   const [questionData, setQuestionData] = useState(null);
 
   const [answerData, setAnswerData] = useState({ rightAnswer: 1 });
-  const submitQuestion = () => {
-  };
-  console.log(answerData);
+  const submitQuestion = () => {};
   const renderAnswerField = times(numOfAnswerField, (num) => (
     <>
       <Divider
@@ -48,6 +48,8 @@ function CreateQuestion() {
   return (
     <>
       <Title level={4}>Question</Title>
+      <QuestionType />
+      <QuestionTag />
       <Text type="secondary">Input your question here</Text>
       <Editor getEditorState={(state) => setQuestionData(state)} />
 
