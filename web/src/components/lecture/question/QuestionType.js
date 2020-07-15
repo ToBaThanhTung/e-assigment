@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import { Menu, Dropdown, Button, message, Tooltip } from "antd";
+import React from "react";
+import { Menu, Dropdown, Button } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 
-const QuestionType = () => {
-  const [type, setType] = useState("EASY");
-
+const QuestionType = ({ questionType, setQuestionType }) => {
   function handleMenuClick(e) {
-    setType(e.key);
+    setQuestionType(e.key);
   }
 
   const menu = (
@@ -21,7 +19,7 @@ const QuestionType = () => {
     <div>
       <Dropdown overlay={menu}>
         <Button>
-          {type} <DownOutlined />
+          {questionType} <DownOutlined />
         </Button>
       </Dropdown>
     </div>

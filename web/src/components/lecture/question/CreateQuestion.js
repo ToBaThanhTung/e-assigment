@@ -3,19 +3,58 @@ import Editor from "../../shared/Editor";
 import { Typography, Col, Row, Checkbox, Divider, Button } from "antd";
 
 import times from "lodash/times";
+import QuestionRender from "./QuestionRender";
 import NumericInput from "../../shared/NumericInput";
 import QuestionType from "./QuestionType";
 import QuestionTag from "./QuestionTag";
+import draftToHtml from "draftjs-to-html";
+import _ from "lodash";
+
+const fakeTag = _.times(10, (num) => `Chapter ${num + 1}`);
 
 const { Title, Text } = Typography;
 
 function CreateQuestion() {
   const [numOfAnswerField, setNumOfAnswerField] = useState("");
 
+  const [questionType, setQuestionType] = useState("EASY");
+
+  const [questionTags, setQuestionTags] = useState(fakeTag);
+
+  const [questionTag, setQuestionTag] = useState("");
+
   const [questionData, setQuestionData] = useState(null);
 
   const [answerData, setAnswerData] = useState({ rightAnswer: 1 });
-  const submitQuestion = () => {};
+
+  const submitQuestion = () => {
+    const question = {
+      type: "MULTIPLE_CHOICE",
+      tag: questionTag,
+      content: questionData,
+      answer: answerData,
+    };
+    console.log(draftToHtml(question.content));
+    console.log(question);
+  };
+
+
+  const question = {
+    type: "MULTIPLE_CHOICE",
+    tag: questionTag,
+    content: questionData,
+    answer: answerData,
+  };
+
+  const getQuestion = () => {
+    return {
+      type: "MULTIPLE_CHOICE",
+      tag: questionTag,
+      content: questionData,
+      answer: answerData,
+    };
+  };
+
   const renderAnswerField = times(numOfAnswerField, (num) => (
     <>
       <Divider
@@ -48,8 +87,16 @@ function CreateQuestion() {
   return (
     <>
       <Title level={4}>Question</Title>
-      <QuestionType />
-      <QuestionTag />
+      <QuestionType
+        questionType={questionType}
+        setQuestionType={setQuestionType}
+      />
+      <QuestionTag
+        questionTags={questionTags}
+        setQuestionTags={setQuestionTags}
+        questionTag={questionTag}
+        setQuestionTag={setQuestionTag}
+      />
       <Text type="secondary">Input your question here</Text>
       <Editor getEditorState={(state) => setQuestionData(state)} />
 
@@ -67,10 +114,11 @@ function CreateQuestion() {
       </Row>
 
       {renderAnswerField}
-      <Row justify="center3">
+      <Row justify="center">
         <Button onClick={submitQuestion} type="primary">
           Create
         </Button>
+        <QuestionRender question={question} />
       </Row>
     </>
   );

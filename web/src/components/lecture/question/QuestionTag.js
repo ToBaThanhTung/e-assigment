@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import { Input, Menu, Dropdown, Button } from "antd";
 import { DownOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import _ from "lodash";
 
-const fakeTag = _.times(10, (num) => `Chapter ${num + 1}`);
-
-const QuestionTag = () => {
-  const [tag, setTag] = useState(fakeTag[0]);
-
-  const [tagList, setTagList] = useState(fakeTag);
-
+const QuestionTag = ({
+  questionTags,
+  setQuestionTags,
+  questionTag,
+  setQuestionTag,
+}) => {
   const [newTag, setNewTag] = useState("");
 
   const [visible, setVisible] = useState(false);
 
   const handleSetNewTag = (e) => {
-    setTagList((cur) => [...cur, newTag]);
+    if (newTag.length === 0) return;
+    setQuestionTags((cur) => [...cur, newTag]);
+    setQuestionTag(newTag);
     setNewTag("");
   };
 
   function handleMenuClick(e) {
     if (e.key !== "Add-tag") {
-      setTag(e.key);
+      setQuestionTag(e.key);
       handleVisibleChange(false);
       return;
     }
@@ -33,7 +33,7 @@ const QuestionTag = () => {
 
   const menu = (
     <Menu onClick={handleMenuClick}>
-      {tagList.map((tag) => (
+      {questionTags.map((tag) => (
         <Menu.Item key={tag}>{tag}</Menu.Item>
       ))}
       <Menu.Item key="Add-tag">
@@ -54,7 +54,7 @@ const QuestionTag = () => {
         visible={visible}
       >
         <Button>
-          {tag} <DownOutlined onClick={handleSetNewTag} />
+          {questionTag} <DownOutlined onClick={handleSetNewTag} />
         </Button>
       </Dropdown>
     </div>
