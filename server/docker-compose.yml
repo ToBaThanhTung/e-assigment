@@ -31,7 +31,7 @@ services:
 
   redis:
     image: redis:6.0.5-alpine
-    container_name: tesseract-redis
+    container_name: assigment-redis
     volumes:
       - redisdata:/data
     restart: unless-stopped

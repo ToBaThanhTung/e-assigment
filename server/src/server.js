@@ -14,8 +14,6 @@ const connectWithRetry = function () {
     {
       useNewUrlParser: true,
       useFindAndModify: false,
-      user: DB.user,
-      pass: DB.pwd,
     },
     err => {
       if (err) {

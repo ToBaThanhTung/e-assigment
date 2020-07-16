@@ -55,8 +55,6 @@ export const createApolloServer = (schema, resolvers, models) => {
         if (connectionParams.authorization) {
           const user = await checkAuthorization(connectionParams.authorization);
 
-          console.log("XX 58",user)
-
           // Publish somthing
        
           // Add authUser to socket's context, so we have access to it, in onDisconnect method
