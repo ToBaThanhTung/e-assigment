@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-
-import Landing from "./components/landing";
+import { SignIn, SignUp } from "./components/landing";
 import Lecture from "./components/lecture";
 import { LectureLayout } from "./components/layouts";
 
@@ -14,10 +13,10 @@ function RouteWithSubRoutes(route) {
         <>
           {!!route.layout ? (
             <route.layout>
-              <route.component {...props} routes={route.routes} />
+              <route.component {...props} routes={route.routes} refetch={route.refetch} />
             </route.layout>
           ) : (
-            <route.component {...props} routes={route.routes} />
+            <route.component {...props} routes={route.routes} refetch={route.refetch} />
           )}
         </>
       )}
@@ -25,8 +24,7 @@ function RouteWithSubRoutes(route) {
   );
 }
 
-const ROUTES = [
-  { path: "/", key: "ROOT", exact: true, component: Landing },
+const PRIVATE_ROUTES = [
   {
     path: "/lecture",
     key: "LECTURE",
@@ -37,7 +35,7 @@ const ROUTES = [
         path: "/lecture",
         key: "LECTURE_ROOT",
         exact: true,
-        component: Lecture.TestBank
+        component: Lecture.TestBank,
       },
       {
         path: "/lecture/contest",
@@ -61,15 +59,21 @@ const ROUTES = [
   },
 ];
 
-export default ROUTES;
+const PUBLIC_ROUTES = [
+  { path: "/signin", key: "ROOT", exact: true, component: SignIn },
+  { path: "/signup", key: "ROOT", exact: true, component: SignUp },
+  { path: "/", key: "ROOT", exact: true, component: SignIn },
+];
 
-export function RenderRoutes({ routes }) {
+function RenderRoutes({ routes, refetch }) {
   return (
     <Switch>
       {routes.map((route, i) => {
-        return <RouteWithSubRoutes key={route.key} {...route} />;
+        return <RouteWithSubRoutes key={route.key} {...route} refetch={refetch}/>;
       })}
       <Route component={() => <h1>Not Found!</h1>} />
     </Switch>
   );
 }
+
+export { PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes };
