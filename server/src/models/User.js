@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const Schema = mongoose.Schema;
 
@@ -30,17 +30,15 @@ const userSchema = new Schema(
       required: true,
     },
 
-    coverImage: String,
-    coverImagePublicId: String,
-
-    gitlabToken: String,
-
-    projects: [
+    testBank: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Project",
+        ref: 'Question',
       },
     ],
+
+    coverImage: String,
+    coverImagePublicId: String,
   },
   {
     timestamps: true,
@@ -50,8 +48,8 @@ const userSchema = new Schema(
 /**
  * Hashes the users password when saving it to DB
  */
-userSchema.pre("save", function (next) {
-  if (!this.isModified("password")) {
+userSchema.pre('save', function (next) {
+  if (!this.isModified('password')) {
     return next();
   }
 
@@ -67,4 +65,4 @@ userSchema.pre("save", function (next) {
   });
 });
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);

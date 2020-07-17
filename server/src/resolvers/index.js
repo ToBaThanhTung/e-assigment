@@ -1,3 +1,4 @@
 import auth from './auth';
+import question from './question';
 
-export default [auth];
+export default [auth, question];

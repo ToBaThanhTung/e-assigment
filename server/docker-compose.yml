@@ -20,7 +20,7 @@ services:
       - redis-network
   db:
     image: mongo
-    container_name: tesseract-mongo
+    container_name: assigment-mongo
     volumes:
       - mongodbdata:/data/db
     restart: unless-stopped

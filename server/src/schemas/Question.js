@@ -16,12 +16,17 @@ const UserSchema = gql`
     dificulty: String
   }
 
-
   # ---------------------------------------------------------
   # Input Objects
   # ---------------------------------------------------------
 
   input createQuestionInput {
+    content: String
+    answer: String
+    type: String
+    tag: String
+    dificulty: String
+    description: String
   }
 
   # ---------------------------------------------------------
@@ -33,27 +38,23 @@ const UserSchema = gql`
     answer: String
     type: String
     tag: String
+    description: String
     dificulty: String
   }
 
   type QuestionsPayload {
     questions: [QuestionPayload]
-    count: number
   }
-  
-
 
   # ---------------------------------------------------------
   # Queries
   # ---------------------------------------------------------
   extend type Query {
-
     # Gets user by username or by id
-    getUser(type: String, id: ID): UserPayload
-
+    getQuestion(type: String, id: ID): UserPayload
 
     # Gets all users
-    getQuestion(userId: String!, skip: Int, limit: Int): UsersPayload
+    getQuestions(userId: String, skip: Int, limit: Int): QuestionsPayload
   }
 
   # ---------------------------------------------------------
