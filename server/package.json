@@ -32,7 +32,7 @@
     "@gitbeaker/node": "^19.7.1",
     "apollo-server": "^2.14.3",
     "apollo-server-express": "^2.14.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "bull": "^3.14.0",
     "cors": "^2.8.5",
